@@ -11,7 +11,7 @@ This module implements the Requests API.
 from . import sessions
 
 
-def request(method, url, **kwargs):
+def request(method, url, timeout=120, **kwargs):
     """Constructs and sends a :class:`Request <Request>`.
 
     :param method: method for the new :class:`Request` object: ``GET``, ``OPTIONS``, ``HEAD``, ``POST``, ``PUT``, ``PATCH``, or ``DELETE``.
@@ -56,7 +56,7 @@ def request(method, url, **kwargs):
     # avoid leaving sockets open which can trigger a ResourceWarning in some
     # cases, and look like a memory leak in others.
     with sessions.Session() as session:
-        return session.request(method=method, url=url, **kwargs)
+        return session.request(method=method, url=url, timeout=timeout, **kwargs)
 
 
 def get(url, params=None, **kwargs):
